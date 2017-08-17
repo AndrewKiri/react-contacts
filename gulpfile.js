@@ -15,6 +15,7 @@ gulp.task('serve', ['webpack'], function () {
     browserSync.init({
         server: './public'
     });
-    gulp.watch('./public/js/components/*.js', ['webpack']);
+    gulp.watch('./public/js/react/*.js', ['webpack']);
+    gulp.watch('./public/css/*.css').on('change', browserSync.reload);
     gulp.watch('./public/index.html').on('change', browserSync.reload);
 });

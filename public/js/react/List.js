@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
+import ListItem from './ListItem.js';
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    buildList(contacts) {
+        return (
+            contacts.map((item, index) => <ListItem key={index} data={item} />)
+        );
+    }
+
     render() {
         return (
             <div className="row">
@@ -18,27 +29,7 @@ class List extends Component {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Alvin</td>
-                                    <td>Eclair</td>
-                                    <td>Eclair</td>
-                                    <td>Eclair</td>
-                                    <td>$0.87</td>
-                                </tr>
-                                <tr>
-                                    <td>Alan</td>
-                                    <td>Jellybean</td>
-                                    <td>Eclair</td>
-                                    <td>Eclair</td>
-                                    <td>$3.76</td>
-                                </tr>
-                                <tr>
-                                    <td>Jonathan</td>
-                                    <td>Lollipop</td>
-                                    <td>Eclair</td>
-                                    <td>Eclair</td>
-                                    <td>$7.00</td>
-                                </tr>
+                                    {this.buildList(this.props.contacts)}
                                 </tbody>
                             </table>
                         </div>

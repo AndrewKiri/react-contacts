@@ -8,39 +8,14 @@ class App extends Component {
         super(props);
         this.state = {
             loaded: false,
-            contacts: [
-                {
-                    name: "Andrew",
-                    surname: "Kirichok",
-                    email: "andrewkiri@yandex.ru",
-                    phone: "+48502992767"
-                },
-                {
-                    name: "Vitaly",
-                    surname: "Kovalenko",
-                    email: "andrewkiri@yandex.ru",
-                    phone: "+48502992767"
-                },
-                {
-                    name: "Valera",
-                    surname: "Belarus",
-                    email: "andrewkiri@yandex.ru",
-                    phone: "+48502992767"
-                },
-                {
-                    name: "Orest",
-                    surname: "Hrachow",
-                    email: "andrewkiri@yandex.ru",
-                    phone: "+48502992767"
-                },
-                {
-                    name: "Telega",
-                    surname: "Ivanovna",
-                    email: "andrewkiri@yandex.ru",
-                    phone: "+48502992767"
-                },
-            ]
+            contacts: []
         }
+    }
+
+    addContact(data) {
+        this.setState((prevState, props) => {
+            contacts: prevState.contacts.push(data)
+        });
     }
 
     componentDidMount() {
@@ -58,12 +33,20 @@ class App extends Component {
     }
 
     renderApp() {
-        return (
-            <div>
-                <Form/>
-                <List contacts={this.state.contacts}/>
-            </div>
-        );
+        if(this.state.contacts.length > 0) {
+            return (
+                <div>
+                    <Form addContact={this.addContact.bind(this)} />
+                    <List contacts={this.state.contacts}/>
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <Form addContact={this.addContact.bind(this)} />
+                </div>
+            );
+        }
     }
 
     render() {

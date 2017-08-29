@@ -360,3 +360,24 @@ textarea {
 body {
     background-color: #673AB7;
 }
+
+/* --- Actions Cell Styling --- */
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.actions a:first-child {
+    margin-right: 1.24rem;
+}
+
+.actions a {
+    color: #222;
+}
+
+.actions a:hover {
+    cursor: pointer;
+    color: #E53935;
+}

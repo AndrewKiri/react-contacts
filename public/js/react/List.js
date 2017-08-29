@@ -8,7 +8,7 @@ class List extends Component {
 
     buildList(contacts) {
         return (
-            contacts.map((item, index) => <ListItem key={index} data={item} />)
+            contacts.map((item, index) => <ListItem key={index} data={item} index={index} removeContact={this.props.removeContact} />)
         );
     }
 

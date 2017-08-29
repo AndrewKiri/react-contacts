@@ -18,6 +18,12 @@ class App extends Component {
         });
     }
 
+    removeContact(index) {
+        this.setState((prevState, props) => {
+            contacts: prevState.contacts.splice(index, 1)
+        });
+    }
+
     componentDidMount() {
         this.setState({
             loaded: true
@@ -37,7 +43,7 @@ class App extends Component {
             return (
                 <div>
                     <Form addContact={this.addContact.bind(this)} />
-                    <List contacts={this.state.contacts}/>
+                    <List removeContact={this.removeContact.bind(this)} contacts={this.state.contacts}/>
                 </div>
             );
         } else {

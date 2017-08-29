@@ -12,17 +12,50 @@ class ListItem extends Component {
     handleChange(event) {
         let newData = this.props.data;
         newData[event.target.getAttribute("name")] = event.target.value;
+        if (event.target.getAttribute("name") == "email") {
+            this.validateEmail(event.target, event.target.value);
+        }
+        if (event.target.getAttribute("name") == "phone") {
+            this.validatePhoneNumber(event.target, event.target.value);
+        }
         this.props.methods.changeContactData(this.props.index, newData);
     }
 
     handleEditStateChange(event) {
-        this.props.methods.toggleEditState(this.props.index);
+        if (this.validateForEmail(this.props.data.email) && this.validateForNumbers(this.props.data.phone)){
+            this.props.methods.toggleEditState(this.props.index);
+        } 
+    }
+
+    validateForNumbers(str) {
+        return /^\d+$/.test(str);
+    }
+
+    validateForEmail(str) {
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(str);
+    }
+
+    validatePhoneNumber(target, value) {
+        if (!this.validateForNumbers(value)) {
+            $(target).addClass("invalid");
+        } else {
+            $(target).removeClass("invalid");
+        }
+    }
+
+    validateEmail(target, value) {
+        if (!this.validateForEmail(value)) {
+            $(target).addClass("invalid");
+        } else {
+            $(target).removeClass("invalid");
+        }
     }
 
     render() {
         if(this.props.data.edit === true) {
             return (
-                <tr>
+                <tr className="contact-item">
                     <td>
                         <div className="input-field inline">
                             <input name="name" type="text" className="validate" value={this.props.data.name} onChange={this.handleChange.bind(this)} />
@@ -35,12 +68,14 @@ class ListItem extends Component {
                     </td>
                     <td>
                         <div className="input-field inline">
-                            <input name="email" type="email" className="validate" value={this.props.data.email} onChange={this.handleChange.bind(this)} data-error="Please, enter a valid email"/>
+                            <input name="email" type="email" value={this.props.data.email} onChange={this.handleChange.bind(this)} onBlur={this.validateEmail.bind(this)}/>
+                            <label for="email" data-error="invalid email"></label>
                         </div>
                     </td>
                     <td>
                         <div className="input-field inline">
-                            <input name="phone" type="text" className="validate" value={this.props.data.phone} onChange={this.handleChange.bind(this)} />
+                            <input name="phone" type="text" value={this.props.data.phone} onChange={this.handleChange.bind(this)} onBlur={this.validatePhoneNumber.bind(this)}/>
+                            <label for="phone" data-error="invalid phone number"></label>
                         </div>
                     </td>
                     <td className="actions">

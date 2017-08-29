@@ -14,7 +14,36 @@ class Form extends Component {
             phone: $('#phone').val(),
             edit: false
         };
-        this.props.methods.addContact(data);
+        if(this.validateForEmail(data.email) && this.validateForNumbers(data.phone)) {
+            this.props.methods.addContact(data);
+        }
+    }
+
+    validateForNumbers(str) {
+        return /^\d+$/.test(str);
+    }
+
+    validateForEmail(str) {
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(str);
+    }
+
+    validatePhoneNumber(event) {
+        let input = event.target;
+        if (!this.validateForNumbers(input.value)) {
+            $(input).addClass("invalid");
+        } else {
+            $(input).removeClass("invalid");
+        }
+    }
+
+    validateEmail(event) {
+        let input = event.target;
+        if(!this.validateForEmail(input.value)) {
+            $(input).addClass("invalid");
+        } else {
+            $(input).removeClass("invalid");
+        }
     }
 
     render() {
@@ -36,12 +65,12 @@ class Form extends Component {
                     </div>
                     <div className="row">
                         <div className="input-field col s6">
-                            <input id="email" type="email" className="validate" />
-                            <label for="email" data-error="Please, enter a valid email">E-mail</label>
+                            <input id="email" type="email" onChange={this.validateEmail.bind(this)} onBlur={this.validateEmail.bind(this)}/>
+                            <label className="contact-list-label" for="email" data-error="Please, enter a valid email">E-mail</label>
                         </div>
                         <div className="input-field col s6">
-                            <input id="phone" type="text" className="validate" />
-                            <label for="phone">Phone</label>
+                            <input id="phone" type="text" onChange={this.validatePhoneNumber.bind(this)} onBlur={this.validatePhoneNumber.bind(this)}/>
+                            <label className="contact-list-label" for="phone" data-error="Please, enter a valid phone number">Phone</label>
                         </div>
                     </div>
                     <div className="row">

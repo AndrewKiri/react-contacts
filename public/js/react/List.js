@@ -18,7 +18,7 @@ class List extends Component {
                 <div className="col offset-m1 s12 m10 ">
                     <div className="card">
                         <div className="card-content">
-                            <table className="highlight">
+                            <table className="highlight responsive-table">
                                 <thead>
                                 <tr>
                                     <th>Name</th>

@@ -5,7 +5,11 @@ class ListItem extends Component {
         super(props);
     }
 
-    handleClick() {
+    handleEdit() {
+        this.props.methods.editContact(this.props.index);
+    }
+
+    handleDelete() {
         this.props.methods.removeContact(this.props.index);
     }
 
@@ -17,8 +21,8 @@ class ListItem extends Component {
                 <td>{this.props.data.email}</td>
                 <td>{this.props.data.phone}</td>
                 <td className="actions">
-                    <a onClick={this.handleClick.bind(this)}><i class="material-icons">edit</i></a>
-                    <a onClick={this.handleClick.bind(this)}><i class="material-icons">delete</i></a>
+                    <a onClick={this.handleEdit.bind(this)}><i class="material-icons">edit</i></a>
+                    <a onClick={this.handleDelete.bind(this)}><i class="material-icons">delete</i></a>
                 </td>
             </tr>
         );

@@ -9,7 +9,8 @@ class App extends Component {
         this.state = {
             loaded: false,
             contacts: [],
-            edited: []
+            edited: [],
+            editedIndex: false
         }
     }
 
@@ -26,9 +27,14 @@ class App extends Component {
     }
 
     editContact(index) {
-        this.setState((prevState, props) => {
-            edited: edited.push(this.state.contacts[index])
-        })
+        this.setState((prevState, props) => ({
+            edited: [prevState.contacts[index]],
+            editedIndex: index
+        }));
+    }
+
+    clearEdit() {
+        this.setState({ edited: [], editedIndex: false });
     }
 
     componentDidMount() {
@@ -52,13 +58,14 @@ class App extends Component {
             removeContact: this.removeContact.bind(this)
         };
         let passedFormMethods = {
-            addContact: this.addContact.bind(this)
+            addContact: this.addContact.bind(this),
+            clearEdit: this.clearEdit.bind(this)
         };
 
         if(this.state.contacts.length > 0) {
             return (
                 <div>
-                    <FormContainer methods={passedFormMethods} edited={this.state.edited}/>
+                    <FormContainer methods={passedFormMethods} edited={this.state.edited} editedIndex={this.state.editedIndex}/>
                     <List methods={passedListMethods} contacts={this.state.contacts}/>
                 </div>
             );

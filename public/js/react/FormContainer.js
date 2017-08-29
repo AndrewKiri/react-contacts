@@ -12,12 +12,7 @@ class FormContainer extends Component {
                 <div className="col offset-m2 s12 m8 ">
                     <div className="card">
                         <div className="card-content">
-                            <div className="row">
-                                <div className="col offset-m2 m8">
-                                    <span class="col card-title">Add/Edit Contact</span>
-                                </div>
-                                <Form methods={this.props.methods} edited={this.props.edited}/>
-                            </div>
+                            <Form methods={this.props.methods} edited={this.props.edited} editedIndex={this.props.editedIndex} />
                         </div>
                     </div>
                 </div>

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import Loader from './Loader';
 import List from './List';
-import Form from './Form';
+import FormContainer from './FormContainer';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loaded: false,
-            contacts: []
+            contacts: [],
+            edited: []
         }
     }
 
@@ -22,6 +23,12 @@ class App extends Component {
         this.setState((prevState, props) => {
             contacts: prevState.contacts.splice(index, 1)
         });
+    }
+
+    editContact(index) {
+        this.setState((prevState, props) => {
+            edited: edited.push(this.state.contacts[index])
+        })
     }
 
     componentDidMount() {
@@ -39,17 +46,26 @@ class App extends Component {
     }
 
     renderApp() {
+        // Method Objects that are passed to React Components as props.methods
+        let passedListMethods = {
+            editContact: this.editContact.bind(this),
+            removeContact: this.removeContact.bind(this)
+        };
+        let passedFormMethods = {
+            addContact: this.addContact.bind(this)
+        };
+
         if(this.state.contacts.length > 0) {
             return (
                 <div>
-                    <Form addContact={this.addContact.bind(this)} />
-                    <List removeContact={this.removeContact.bind(this)} contacts={this.state.contacts}/>
+                    <FormContainer methods={passedFormMethods} edited={this.state.edited}/>
+                    <List methods={passedListMethods} contacts={this.state.contacts}/>
                 </div>
             );
         } else {
             return (
                 <div>
-                    <Form addContact={this.addContact.bind(this)} />
+                    <FormContainer methods={passedFormMethods} />
                 </div>
             );
         }

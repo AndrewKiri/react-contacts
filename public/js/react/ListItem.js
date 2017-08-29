@@ -6,7 +6,7 @@ class ListItem extends Component {
     }
 
     handleClick() {
-        this.props.removeContact(this.props.index);
+        this.props.methods.removeContact(this.props.index);
     }
 
     render() {

@@ -369,12 +369,11 @@ body {
     align-items: center;
 }
 
-.actions a:first-child {
-    margin-right: 1.24rem;
-}
-
 .actions a {
     color: #222;
+    padding-right: 8px;
+    padding-left: 8px;
+    margin-right: 1.3rem;
 }
 
 .actions a:hover {

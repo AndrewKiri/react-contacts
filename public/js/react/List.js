@@ -15,7 +15,7 @@ class List extends Component {
     render() {
         return (
             <div className="row">
-                <div className="col offset-m2 s12 m8 ">
+                <div className="col offset-m1 s12 m10 ">
                     <div className="card">
                         <div className="card-content">
                             <table className="highlight">

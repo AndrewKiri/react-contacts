@@ -8,9 +8,7 @@ class App extends Component {
         super(props);
         this.state = {
             loaded: false,
-            contacts: [],
-            edited: [],
-            editedIndex: false
+            contacts: []
         }
     }
 
@@ -26,15 +24,22 @@ class App extends Component {
         });
     }
 
-    editContact(index) {
-        this.setState((prevState, props) => ({
-            edited: [prevState.contacts[index]],
-            editedIndex: index
-        }));
+    changeContactData(index, data) {
+        this.setState((prevState, props) => {
+            prevState.contacts[index] = data;
+            return prevState;
+        })
     }
 
-    clearEdit() {
-        this.setState({ edited: [], editedIndex: false });
+    toggleEditState(index) {
+        this.setState((prevState, props) => {
+            if(prevState.contacts[index]["edit"] === true) {
+                prevState.contacts[index]["edit"] = false;
+            } else {
+                prevState.contacts[index]["edit"] = true;
+            }
+            return prevState;
+        })
     }
 
     componentDidMount() {
@@ -54,12 +59,12 @@ class App extends Component {
     renderApp() {
         // Method Objects that are passed to React Components as props.methods
         let passedListMethods = {
-            editContact: this.editContact.bind(this),
-            removeContact: this.removeContact.bind(this)
+            removeContact: this.removeContact.bind(this),
+            changeContactData: this.changeContactData.bind(this),
+            toggleEditState: this.toggleEditState.bind(this)
         };
         let passedFormMethods = {
             addContact: this.addContact.bind(this),
-            clearEdit: this.clearEdit.bind(this)
         };
 
         if(this.state.contacts.length > 0) {

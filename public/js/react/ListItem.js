@@ -53,9 +53,13 @@ class ListItem extends Component {
     }
 
     render() {
+        let hiddenRowCheck = "";
+        if (this.props.index + 1 > this.props.currentlyActivePage * 10 || this.props.index + 1 < this.props.currentlyActivePage * 10 - 10) {
+            hiddenRowCheck = "hide";
+        }
         if(this.props.data.edit === true) {
             return (
-                <tr className="contact-item">
+                <tr className={hiddenRowCheck}>
                     <td>
                         <div className="input-field inline">
                             <input name="name" type="text" className="validate" value={this.props.data.name} onChange={this.handleChange.bind(this)} />
@@ -87,7 +91,7 @@ class ListItem extends Component {
             );
         } else {
             return (
-                <tr>
+                <tr className={hiddenRowCheck}>
                     <td>{this.props.data.name}</td>
                     <td>{this.props.data.surname}</td>
                     <td>{this.props.data.email}</td>

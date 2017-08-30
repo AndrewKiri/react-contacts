@@ -4,9 +4,16 @@ import ListItem from './ListItem.js';
 class List extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            active: 1 
+        this.state = {};
+        if (!this.props.methods.retrieveLocalStorage("active")) {
+            this.state.active = 1;
+        } else {
+            this.state.active = this.props.methods.retrieveLocalStorage("active");
         }
+    }
+
+    componentDidUpdate() {
+        this.props.methods.updateLocalStorage("active", JSON.stringify(this.state.active));
     }
 
     buildList(contacts) {

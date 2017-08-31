@@ -8,7 +8,7 @@ class App extends Component {
         super(props);
         this.state = { loaded: false , contacts: { data: []}};
         if (this.retrieveLocalStorage("contacts")) {
-            this.state.contacts.data = this.retrieveLocalStorage("contacts")
+            this.state.contacts.data = this.retrieveLocalStorage("contacts").data;
         }
     }
 
@@ -61,7 +61,7 @@ class App extends Component {
     }
 
     retrieveLocalStorage(key) {
-        let foundLocalData = JSON.parse(window.localStorage.getItem(key));
+        let foundLocalData = JSON.parse(JSON.parse(window.localStorage.getItem(key)));
         if(foundLocalData) {
             return foundLocalData;
         } else {
@@ -89,7 +89,6 @@ class App extends Component {
         let passedFormMethods = {
             addContact: this.addContact.bind(this),
         };
-        console.log(this.state);
         if(this.state.contacts.data.length > 0) {
             return (
                 <div>
